@@ -8,7 +8,10 @@ app.use(express.json());
 
 // Updated CORS for both development and production
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: [
+        'http://localhost:5173',  // For local development
+        'https://react-app-rent-cars-production.up.railway.app'  // For production
+    ],
     credentials: true
 }));
 
