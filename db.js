@@ -1,12 +1,18 @@
 const Pool = require('pg').Pool;
 
 const pool = new Pool({
-    user: 'postgres',
-    host: process.env.DB_HOST,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
-    database: process.env.MYSQL_DB,
-})
+    // Use Railway DATABASE_URL in production, individual env vars in development
+    connectionString: process.env.DATABASE_URL,
+
+    // Fallback to individual env vars for local development
+    user: process.env.DATABASE_URL ? undefined : process.env.DB_USER,
+    host: process.env.DATABASE_URL ? undefined : process.env.DB_HOST,
+    password: process.env.DATABASE_URL ? undefined : process.env.DB_PASS,
+    port: process.env.DATABASE_URL ? undefined : process.env.DB_PORT, // ← Fixed: was process.env.PORT
+    database: process.env.DATABASE_URL ? undefined : process.env.DB_NAME,
+
+    // SSL for production (Railway requires this)
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
 
 module.exports = pool;

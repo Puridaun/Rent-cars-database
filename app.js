@@ -6,25 +6,22 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 
+// Updated CORS for both development and production
 app.use(cors({
-    origin: 'http://localhost:5173', // ✅ exact frontend address
-    credentials: true                // ✅ allow cookies/auth headers if needed
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    credentials: true
 }));
 
 const rentCarsRoutes = require('./src/rent-cars/routes');
 
-
 app.get('/', (req, res) => {
-    res.send(
-        "Good job"
-    )
+    res.send("Good job")
 })
 
 app.use('/api/v1/rent-cars', rentCarsRoutes)
 
-app.listen(process.env.APP_PORT, () => {
-    console.log('Server start', process.env.APP_PORT)
+// Fixed: Use PORT || 3000 as fallback
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log('Server started on port', PORT)
 })
-
-
-
