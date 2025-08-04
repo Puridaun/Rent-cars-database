@@ -23,10 +23,9 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/rent-cars', rentCarsRoutes)
 
-// Fixed: Use PORT || 3000 as fallback
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('Server started on port', PORT)
 })
 
-// Change image address 
