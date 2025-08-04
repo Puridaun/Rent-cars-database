@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors({
     origin: [
         'http://localhost:5173',
-        'rent-cars-app-production.up.railway.app'
+        'https://rent-cars-app-production.up.railway.app/'
     ],
     credentials: true
 }));
