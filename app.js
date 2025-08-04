@@ -6,11 +6,11 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 
-// Updated CORS for both development and production
+
 app.use(cors({
     origin: [
-        'http://localhost:5173',  // For local development
-        'https://react-app-rent-cars-production.up.railway.app'  // For production
+        'http://localhost:5173',
+        'rent-cars-app-production.up.railway.app'
     ],
     credentials: true
 }));
